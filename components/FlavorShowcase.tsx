@@ -272,7 +272,10 @@ export default function FlavorShowcase() {
     let moved = false;
 
     const onPointerDown = (e: PointerEvent) => {
-      if (e.pointerType === "mouse" && e.button !== 0) return;
+      // Touch/pen scrolling is handled natively by the browser — smoother
+      // momentum + scroll-snap than JS drag. JS drag is mouse-only.
+      if (e.pointerType !== "mouse") return;
+      if (e.button !== 0) return;
       isDown = true;
       moved = false;
       startX = e.clientX;
@@ -424,7 +427,7 @@ export default function FlavorShowcase() {
               <article
                 key={flavor.name}
                 data-flavor-card
-                className="relative flex h-[40vh] max-h-[300px] min-h-[220px] w-[70vw] max-w-[280px] flex-shrink-0 flex-col justify-between overflow-hidden rounded-[1.75rem] p-5 shadow-[0_20px_40px_-20px_rgba(58,31,23,0.4)] md:h-[70vh] md:max-h-[560px] md:min-h-[420px] md:w-[26vw] md:min-w-[320px] md:rounded-[2.25rem] md:p-7"
+                className="relative flex h-[42vh] max-h-[320px] min-h-[240px] w-[70vw] max-w-[280px] flex-shrink-0 flex-col justify-between overflow-hidden rounded-[1.75rem] p-4 shadow-[0_20px_40px_-20px_rgba(58,31,23,0.4)] md:h-[70vh] md:max-h-[560px] md:min-h-[420px] md:w-[26vw] md:min-w-[320px] md:rounded-[2.25rem] md:p-7"
                 style={{ backgroundColor: flavor.cardBg }}
               >
                 <div
@@ -446,8 +449,8 @@ export default function FlavorShowcase() {
                   </span>
                 </div>
 
-                <div className="my-1 flex flex-1 items-center justify-center md:my-4">
-                  <div className="pointer-events-none relative aspect-square w-[52%] drop-shadow-[0_18px_30px_rgba(58,31,23,0.25)] md:w-[88%]">
+                <div className="my-1 flex min-h-0 flex-1 items-center justify-center md:my-4">
+                  <div className="pointer-events-none relative aspect-square w-[70%] drop-shadow-[0_18px_30px_rgba(58,31,23,0.25)] md:w-[88%]">
                     <Image
                       src={flavor.image}
                       alt={flavor.name}

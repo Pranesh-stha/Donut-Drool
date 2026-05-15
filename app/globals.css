@@ -25,7 +25,8 @@ body::-webkit-scrollbar {
   overscroll-behavior-x: contain;
   -webkit-user-select: none;
   user-select: none;
-  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
 }
 
 .flavor-rail::-webkit-scrollbar {
