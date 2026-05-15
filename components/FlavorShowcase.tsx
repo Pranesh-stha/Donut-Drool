@@ -15,6 +15,9 @@ type Flavor = {
   cardBg: string;
   textColor: string;
   accent: string;
+  // Some donut PNGs sit inside a larger transparent canvas; scale up to
+  // match the visual size of the others.
+  imageScale?: number;
 };
 
 const FLAVORS: Flavor[] = [
@@ -73,6 +76,7 @@ const FLAVORS: Flavor[] = [
     cardBg: "#e8d4c0",
     textColor: "#3a1f17",
     accent: "#3a1f17",
+    imageScale: 1.35,
   },
   {
     name: "Chocolate Brownie",
@@ -450,7 +454,14 @@ export default function FlavorShowcase() {
                 </div>
 
                 <div className="my-1 flex min-h-0 flex-1 items-center justify-center md:my-4">
-                  <div className="pointer-events-none relative aspect-square w-[70%] drop-shadow-[0_18px_30px_rgba(58,31,23,0.25)] md:w-[88%]">
+                  <div
+                    className="pointer-events-none relative aspect-square w-[70%] drop-shadow-[0_18px_30px_rgba(58,31,23,0.25)] md:w-[88%]"
+                    style={
+                      flavor.imageScale
+                        ? { transform: `scale(${flavor.imageScale})` }
+                        : undefined
+                    }
+                  >
                     <Image
                       src={flavor.image}
                       alt={flavor.name}

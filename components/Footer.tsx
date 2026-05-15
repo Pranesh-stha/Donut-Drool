@@ -158,17 +158,30 @@ export default function Footer() {
               Explore
             </h4>
             <ul className="mt-6 space-y-3 font-display text-2xl uppercase">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="group inline-flex items-center gap-2 text-cream transition-colors hover:text-[#ff8aa8]"
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#e3242b] transition-transform group-hover:scale-150" />
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {NAV_LINKS.map((link) => {
+                const targetId = link.href.replace(/^#/, "");
+                return (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => {
+                        const target = document.getElementById(targetId);
+                        if (!target) return;
+                        e.preventDefault();
+                        history.pushState(null, "", link.href);
+                        target.scrollIntoView({
+                          behavior: "smooth",
+                          block: "start",
+                        });
+                      }}
+                      className="group inline-flex items-center gap-2 text-cream transition-colors hover:text-[#ff8aa8]"
+                    >
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#e3242b] transition-transform group-hover:scale-150" />
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
