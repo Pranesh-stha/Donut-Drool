@@ -37,7 +37,7 @@ const BURST_START_ROTATION: [number, number, number] = [ZOOM_END_X_TILT, 0, 0];
 const BURST_DONUTS: DonutPose[] = [
   {
     position: [-2.35, 0.15, 4.05],
-    rotation: [Math.PI / 2 - 0.25, 0.6, -0.35],
+    rotation: [Math.PI / 2 + 0.1, 0.6 + Math.PI / 2, -0.35],
     scale: 2.35,
     src: FLAVORS[5],
   },

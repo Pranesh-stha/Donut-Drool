@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 const NAV_LINKS = [
   { label: "Menu", href: "#menu" },
   { label: "Locations", href: "#locations" },
@@ -115,17 +117,13 @@ export default function Footer() {
       <div className="relative mx-auto max-w-7xl px-8 pt-20 pb-12 md:px-14 md:pt-24 lg:px-20">
         <div className="grid gap-14 md:grid-cols-[1.4fr_1fr_1fr] md:gap-10 lg:gap-16">
           <div>
-            <h3 className="font-display text-5xl uppercase leading-[0.92] text-cream md:text-6xl">
-              Donut
-              <br />
-              <span className="relative inline-block -rotate-2 align-baseline">
-                <span className="relative z-10 text-[#ff8aa8] [text-shadow:3px_3px_0_#e3242b]">
-                  Drool
-                </span>
-                <span className="absolute -right-3 top-1 h-3 w-3 rounded-full bg-[#e3242b]" />
-                <span className="absolute -right-1 top-7 h-1.5 w-1.5 rounded-full bg-[#ffd166]" />
-              </span>
-            </h3>
+            <Image
+              src="/logo.png"
+              alt="Donut Drool"
+              width={2471}
+              height={1312}
+              className="h-24 w-auto md:h-28"
+            />
             <p className="mt-8 max-w-sm font-sans text-sm leading-relaxed text-[#d9b9a3]">
               Hand-rolled, eggless, and glazed with love &mdash; bringing fresh
               donuts and warm smiles to the valley every single day.

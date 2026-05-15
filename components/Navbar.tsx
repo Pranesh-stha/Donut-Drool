@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import type { Phase } from "./HeroSection";
@@ -11,8 +12,7 @@ const LINKS: NavLink[] = [
   { label: "Home", target: "home" },
   { label: "Menu", target: "menu" },
   { label: "Locations", target: "locations" },
-  { label: "About", target: null },
-  { label: "Contact", target: null },
+  { label: "About", target: "about" },
 ];
 
 export default function Navbar({
@@ -73,16 +73,20 @@ export default function Navbar({
       ref={navRef}
       className="absolute left-0 right-0 top-0 z-20 flex items-center justify-between px-6 py-5 md:px-12 md:py-6"
     >
-      <div
-        ref={logoRef}
-        className="font-display text-2xl uppercase leading-none tracking-wide text-donut-red md:text-3xl"
-      >
-        Donut Drool
+      <div ref={logoRef} className="flex items-center">
+        <Image
+          src="/logo.png"
+          alt="Donut Drool"
+          width={2471}
+          height={1312}
+          priority
+          className="h-10 w-auto md:h-12"
+        />
       </div>
 
       <ul
         ref={linksRef}
-        className="hidden items-center gap-8 text-sm font-medium uppercase tracking-widest text-donut-dark md:flex"
+        className="hidden items-center gap-8 rounded-full bg-cream/70 px-6 py-3 text-sm font-medium uppercase tracking-widest text-donut-dark shadow-[0_8px_24px_-12px_rgba(58,31,23,0.25)] backdrop-blur-md md:flex"
       >
         {LINKS.map((link) => {
           if (!link.target) {

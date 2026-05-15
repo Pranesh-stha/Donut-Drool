@@ -41,7 +41,7 @@ body {
   transform: translateY(28px) scale(0.96);
   transform-origin: center bottom;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
-  animation: hero-headline-in 0.82s cubic-bezier(0.16, 1, 0.3, 1) 2.18s forwards;
+  animation: hero-headline-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.4s forwards;
 }
 
 .hero-smile-banner {
@@ -49,31 +49,31 @@ body {
   clip-path: inset(0 50% 0 50%);
   transform: translateY(10px) rotate(-2.4deg);
   transform-origin: center top;
-  animation: smile-banner-open 0.48s cubic-bezier(0.16, 1, 0.3, 1) 2.28s forwards;
+  animation: smile-banner-open 0.9s cubic-bezier(0.16, 1, 0.3, 1) 3.1s forwards;
 }
 
 .hero-support-copy,
 .hero-menu-button {
   opacity: 0;
   transform: translateY(18px);
-  animation: hero-copy-in 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: hero-copy-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .hero-support-copy {
-  animation-delay: 2.88s;
+  animation-delay: 3.9s;
 }
 
 .hero-menu-button {
-  animation-delay: 3.05s;
+  animation-delay: 4.3s;
 }
 
 .hero-sparkle {
   opacity: 0;
-  animation: hero-sparkle-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) 2.4s forwards;
+  animation: hero-sparkle-pop 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2.9s forwards;
 }
 
 .hero-sparkle-right {
-  animation-delay: 2.5s;
+  animation-delay: 3.1s;
 }
 
 @keyframes hero-headline-in {

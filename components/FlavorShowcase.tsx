@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -10,157 +11,150 @@ gsap.registerPlugin(ScrollTrigger);
 type Flavor = {
   name: string;
   price: string;
+  image: string;
   cardBg: string;
-  ringBg: string;
-  ringHole: string;
-  glaze: string;
-  sprinkles: string[];
   textColor: string;
   accent: string;
 };
 
 const FLAVORS: Flavor[] = [
   {
-    name: "Classic Glaze",
+    name: "Classic Glazed",
     price: "Rs. 120",
+    image: "/menu/glazed.png",
     cardBg: "#ffe9c4",
-    ringBg: "#d9a566",
-    ringHole: "#ffe9c4",
-    glaze: "#fff4dc",
-    sprinkles: ["#e3242b", "#3a1f17", "#ff8aa8", "#5a3526"],
     textColor: "#3a1f17",
     accent: "#e3242b",
   },
   {
-    name: "Choco Drizzle",
+    name: "Chocolate Icing",
     price: "Rs. 150",
+    image: "/menu/chocolateIcing.png",
     cardBg: "#3a1f17",
-    ringBg: "#7a4a32",
-    ringHole: "#3a1f17",
-    glaze: "#2a140e",
-    sprinkles: ["#fde4b8", "#ff8aa8", "#ffd166", "#ffffff"],
     textColor: "#fef6ec",
     accent: "#ffd166",
   },
   {
-    name: "Strawberry Cream",
-    price: "Rs. 140",
-    cardBg: "#ffd2dd",
-    ringBg: "#c98a72",
-    ringHole: "#ffd2dd",
-    glaze: "#ff7aa1",
-    sprinkles: ["#ffffff", "#3a1f17", "#ffd166", "#e3242b"],
+    name: "White Sprinkles",
+    price: "Rs. 165",
+    image: "/menu/whiteIcingSprinkels.png",
+    cardBg: "#fef6ec",
     textColor: "#3a1f17",
     accent: "#e3242b",
   },
   {
-    name: "Matcha Swirl",
+    name: "Oreo Crunch",
+    price: "Rs. 170",
+    image: "/menu/oreo.png",
+    cardBg: "#2a2a2a",
+    textColor: "#fef6ec",
+    accent: "#ffffff",
+  },
+  {
+    name: "Raspberry",
     price: "Rs. 160",
-    cardBg: "#dfeccd",
-    ringBg: "#c69a6b",
-    ringHole: "#dfeccd",
-    glaze: "#9bc17a",
-    sprinkles: ["#3a1f17", "#ffffff", "#e3242b", "#ffd166"],
-    textColor: "#2e3d22",
+    image: "/menu/raspberry.png",
+    cardBg: "#ffd2dd",
+    textColor: "#3a1f17",
+    accent: "#e3242b",
+  },
+  {
+    name: "Honey Glaze",
+    price: "Rs. 135",
+    image: "/menu/honey.png",
+    cardBg: "#fbe5a5",
+    textColor: "#3a1f17",
+    accent: "#a4612a",
+  },
+  {
+    name: "Choco Chips",
+    price: "Rs. 175",
+    image: "/menu/chocochips.png",
+    cardBg: "#e8d4c0",
+    textColor: "#3a1f17",
     accent: "#3a1f17",
   },
   {
-    name: "Caramel Crunch",
+    name: "Chocolate Brownie",
+    price: "Rs. 180",
+    image: "/menu/chocolateBrownie.png",
+    cardBg: "#5a3526",
+    textColor: "#fef6ec",
+    accent: "#ffd166",
+  },
+  {
+    name: "Cookies & Cream",
+    price: "Rs. 170",
+    image: "/menu/cookielike.png",
+    cardBg: "#f0e6d2",
+    textColor: "#3a1f17",
+    accent: "#3a1f17",
+  },
+  {
+    name: "The Actual Custard",
     price: "Rs. 155",
+    image: "/menu/TheActualCustard.png",
+    cardBg: "#fef6ec",
+    textColor: "#3a1f17",
+    accent: "#e3242b",
+  },
+  {
+    name: "Custard Filled",
+    price: "Rs. 150",
+    image: "/menu/custard.png",
+    cardBg: "#fde4b8",
+    textColor: "#3a1f17",
+    accent: "#a4612a",
+  },
+  {
+    name: "Cream Filled",
+    price: "Rs. 145",
+    image: "/menu/creamInMiddle.png",
+    cardBg: "#f7e7d0",
+    textColor: "#3a1f17",
+    accent: "#7a4a32",
+  },
+  {
+    name: "Choco Cream Center",
+    price: "Rs. 175",
+    image: "/menu/chocoIcingwithcentercreame.png",
+    cardBg: "#4a2b1f",
+    textColor: "#fef6ec",
+    accent: "#ffd166",
+  },
+  {
+    name: "DD's Cream Cheese",
+    price: "Rs. 185",
+    image: "/menu/DDsCreamecheese.png",
+    cardBg: "#fff4dc",
+    textColor: "#3a1f17",
+    accent: "#e3242b",
+  },
+  {
+    name: "Kunafa",
+    price: "Rs. 200",
+    image: "/menu/kunafa.png",
     cardBg: "#f3c98a",
-    ringBg: "#a4612a",
-    ringHole: "#f3c98a",
-    glaze: "#d68945",
-    sprinkles: ["#3a1f17", "#fef6ec", "#7a4a32", "#ff8aa8"],
     textColor: "#3a1f17",
     accent: "#7a2c0e",
   },
   {
-    name: "Blueberry Burst",
-    price: "Rs. 145",
-    cardBg: "#cdd7f0",
-    ringBg: "#c69a6b",
-    ringHole: "#cdd7f0",
-    glaze: "#7a8fd1",
-    sprinkles: ["#ffffff", "#3a1f17", "#ffd166", "#e3242b"],
-    textColor: "#1f2a4d",
-    accent: "#3a1f17",
+    name: "Cinnamon Brown",
+    price: "Rs. 130",
+    image: "/menu/brown.png",
+    cardBg: "#e8c89a",
+    textColor: "#3a1f17",
+    accent: "#7a4a32",
   },
   {
-    name: "Sprinkle Party",
-    price: "Rs. 165",
-    cardBg: "#fef6ec",
-    ringBg: "#d9a566",
-    ringHole: "#fef6ec",
-    glaze: "#ffffff",
-    sprinkles: ["#e3242b", "#3a1f17", "#ff8aa8", "#ffd166", "#7a8fd1", "#9bc17a"],
+    name: "Just A Donut",
+    price: "Rs. 110",
+    image: "/menu/justAdonut.png",
+    cardBg: "#fde4b8",
     textColor: "#3a1f17",
-    accent: "#e3242b",
+    accent: "#3a1f17",
   },
 ];
-
-function DonutVisual({ flavor }: { flavor: Flavor }) {
-  const sprinkleSeed = [
-    { x: 28, y: 18, rot: -22 },
-    { x: 60, y: 12, rot: 14 },
-    { x: 82, y: 34, rot: 48 },
-    { x: 86, y: 64, rot: -10 },
-    { x: 64, y: 86, rot: 32 },
-    { x: 30, y: 84, rot: -38 },
-    { x: 12, y: 60, rot: 22 },
-    { x: 16, y: 32, rot: 6 },
-    { x: 46, y: 22, rot: -14 },
-    { x: 72, y: 50, rot: 60 },
-    { x: 26, y: 56, rot: -42 },
-    { x: 54, y: 78, rot: 18 },
-  ];
-
-  return (
-    <svg
-      viewBox="0 0 200 200"
-      className="h-full w-full drop-shadow-[0_18px_30px_rgba(58,31,23,0.25)]"
-    >
-      <defs>
-        <radialGradient id={`dough-${flavor.name}`} cx="50%" cy="42%" r="60%">
-          <stop offset="0%" stopColor={flavor.ringBg} stopOpacity="1" />
-          <stop offset="100%" stopColor={flavor.ringBg} stopOpacity="0.78" />
-        </radialGradient>
-        <radialGradient id={`glaze-${flavor.name}`} cx="50%" cy="40%" r="60%">
-          <stop offset="0%" stopColor={flavor.glaze} stopOpacity="1" />
-          <stop offset="100%" stopColor={flavor.glaze} stopOpacity="0.85" />
-        </radialGradient>
-      </defs>
-      <circle cx="100" cy="100" r="86" fill={`url(#dough-${flavor.name})`} />
-      <path
-        d="M100,18 a82,82 0 0 1 0,164 a82,82 0 0 1 0,-164 z M100,40 a60,60 0 0 0 0,120 a60,60 0 0 0 0,-120 z"
-        fill={`url(#glaze-${flavor.name})`}
-        stroke="rgba(0,0,0,0.08)"
-        strokeWidth="1"
-      />
-      <path
-        d="M30,72 q14,-22 38,-12 q22,8 44,-6 q22,-14 46,-2 q14,8 22,4"
-        fill="none"
-        stroke={flavor.glaze}
-        strokeOpacity="0.55"
-        strokeWidth="6"
-        strokeLinecap="round"
-      />
-      <circle cx="100" cy="100" r="30" fill={flavor.ringHole} />
-      {sprinkleSeed.map((s, i) => (
-        <rect
-          key={i}
-          x={s.x * 2 - 4}
-          y={s.y * 2 - 1.4}
-          width="8"
-          height="2.8"
-          rx="1.4"
-          fill={flavor.sprinkles[i % flavor.sprinkles.length]}
-          transform={`rotate(${s.rot} ${s.x * 2} ${s.y * 2})`}
-        />
-      ))}
-    </svg>
-  );
-}
 
 export default function FlavorShowcase() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -449,8 +443,15 @@ export default function FlavorShowcase() {
                 </div>
 
                 <div className="my-4 flex flex-1 items-center justify-center">
-                  <div className="pointer-events-none aspect-square w-[78%]">
-                    <DonutVisual flavor={flavor} />
+                  <div className="pointer-events-none relative aspect-square w-[88%] drop-shadow-[0_18px_30px_rgba(58,31,23,0.25)]">
+                    <Image
+                      src={flavor.image}
+                      alt={flavor.name}
+                      fill
+                      sizes="(max-width: 768px) 78vw, 26vw"
+                      className="object-contain"
+                      draggable={false}
+                    />
                   </div>
                 </div>
 
