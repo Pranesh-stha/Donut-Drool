@@ -119,7 +119,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <Image
               src="/logo.png"
-              alt="Donut Drool"
+              alt="Donut Drool — Nepal's best eggless donut shop"
               width={2471}
               height={1312}
               className="h-24 w-auto md:h-28"

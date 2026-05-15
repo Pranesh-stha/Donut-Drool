@@ -125,7 +125,7 @@ export default function Navbar({
       <div ref={logoRef} className="flex items-center">
         <Image
           src="/logo.png"
-          alt="Donut Drool"
+          alt="Donut Drool — eggless donuts in Kathmandu and Lalitpur"
           width={2471}
           height={1312}
           priority

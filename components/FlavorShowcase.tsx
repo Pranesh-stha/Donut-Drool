@@ -464,7 +464,7 @@ export default function FlavorShowcase() {
                   >
                     <Image
                       src={flavor.image}
-                      alt={flavor.name}
+                      alt={`${flavor.name} eggless donut from Donut Drool — fresh in Kathmandu and Lalitpur`}
                       fill
                       sizes="(max-width: 768px) 70vw, 26vw"
                       className="object-contain"
