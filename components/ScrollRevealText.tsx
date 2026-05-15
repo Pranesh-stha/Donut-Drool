@@ -19,6 +19,13 @@ export default function ScrollRevealText() {
       const words = wordsRef.current.filter(Boolean) as HTMLSpanElement[];
       if (!words.length) return;
 
+      // On mobile, skip the scroll-scrub reveal and just show the words at
+      // their final cream color so they're readable against the dark bg.
+      if (!window.matchMedia("(min-width: 768px)").matches) {
+        gsap.set(words, { color: "#fef6ec" });
+        return;
+      }
+
       gsap.to(words, {
         color: "#fef6ec",
         ease: "none",

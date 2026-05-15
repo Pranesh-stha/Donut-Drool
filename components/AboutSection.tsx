@@ -81,8 +81,10 @@ export default function AboutSection() {
     () => {
       const heading = headingRef.current;
       if (!heading) return;
+      // No scroll-triggered reveal on mobile — content sits at its natural
+      // rendered state, no fromTo initial transform applied.
+      if (!window.matchMedia("(min-width: 768px)").matches) return;
 
-      const isDesktop = window.matchMedia("(min-width: 768px)").matches;
       const lines = heading.querySelectorAll<HTMLSpanElement>("[data-line]");
 
       const trigger = {
@@ -95,16 +97,13 @@ export default function AboutSection() {
       if (lines.length) {
         gsap.fromTo(
           lines,
-          isDesktop
-            ? { yPercent: 100, opacity: 0 }
-            : { y: 16, opacity: 0 },
+          { yPercent: 100, opacity: 0 },
           {
             yPercent: 0,
-            y: 0,
             opacity: 1,
-            duration: isDesktop ? 0.8 : 0.5,
+            duration: 0.8,
             ease: "power3.out",
-            stagger: isDesktop ? 0.14 : 0.08,
+            stagger: 0.14,
             scrollTrigger: trigger,
           }
         );
@@ -115,13 +114,13 @@ export default function AboutSection() {
       if (paragraph) {
         gsap.fromTo(
           paragraph,
-          { y: isDesktop ? 24 : 16, opacity: 0 },
+          { y: 24, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: isDesktop ? 0.8 : 0.5,
+            duration: 0.8,
             ease: "power3.out",
-            delay: isDesktop ? 0.3 : 0.15,
+            delay: 0.3,
             scrollTrigger: trigger,
           }
         );
@@ -132,13 +131,13 @@ export default function AboutSection() {
       if (stats.length) {
         gsap.fromTo(
           stats,
-          { y: isDesktop ? 24 : 12, opacity: 0 },
+          { y: 24, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: isDesktop ? 0.6 : 0.4,
+            duration: 0.6,
             ease: "power3.out",
-            stagger: isDesktop ? 0.12 : 0.07,
+            stagger: 0.12,
             scrollTrigger: {
               trigger: stats[0],
               start: "top 88%",
