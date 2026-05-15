@@ -82,6 +82,7 @@ export default function AboutSection() {
       const heading = headingRef.current;
       if (!heading) return;
 
+      const isDesktop = window.matchMedia("(min-width: 768px)").matches;
       const lines = heading.querySelectorAll<HTMLSpanElement>("[data-line]");
 
       const trigger = {
@@ -94,13 +95,16 @@ export default function AboutSection() {
       if (lines.length) {
         gsap.fromTo(
           lines,
-          { yPercent: 100, opacity: 0 },
+          isDesktop
+            ? { yPercent: 100, opacity: 0 }
+            : { y: 16, opacity: 0 },
           {
             yPercent: 0,
+            y: 0,
             opacity: 1,
-            duration: 0.8,
+            duration: isDesktop ? 0.8 : 0.5,
             ease: "power3.out",
-            stagger: 0.14,
+            stagger: isDesktop ? 0.14 : 0.08,
             scrollTrigger: trigger,
           }
         );
@@ -111,13 +115,13 @@ export default function AboutSection() {
       if (paragraph) {
         gsap.fromTo(
           paragraph,
-          { y: 24, opacity: 0 },
+          { y: isDesktop ? 24 : 16, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
+            duration: isDesktop ? 0.8 : 0.5,
             ease: "power3.out",
-            delay: 0.3,
+            delay: isDesktop ? 0.3 : 0.15,
             scrollTrigger: trigger,
           }
         );
@@ -128,13 +132,13 @@ export default function AboutSection() {
       if (stats.length) {
         gsap.fromTo(
           stats,
-          { y: 24, opacity: 0 },
+          { y: isDesktop ? 24 : 12, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.6,
+            duration: isDesktop ? 0.6 : 0.4,
             ease: "power3.out",
-            stagger: 0.12,
+            stagger: isDesktop ? 0.12 : 0.07,
             scrollTrigger: {
               trigger: stats[0],
               start: "top 88%",
@@ -185,10 +189,10 @@ export default function AboutSection() {
         />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-8 py-24 md:px-14 md:py-28 lg:px-20">
-        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+      <div className="relative mx-auto max-w-7xl px-6 py-20 md:px-14 md:py-28 lg:px-20">
+        <div className="grid grid-cols-1 items-center gap-12 md:gap-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
           <div className="relative flex flex-col">
-            <span className="mb-8 inline-flex w-fit items-center gap-2 rounded-full bg-[#3a1f17] px-5 py-2 font-sans text-xs uppercase tracking-[0.32em] text-cream">
+            <span className="mb-6 inline-flex w-fit items-center gap-2 rounded-full bg-[#3a1f17] px-5 py-2 font-sans text-xs uppercase tracking-[0.32em] text-cream md:mb-8">
               <SparkIcon className="h-3 w-3 text-[#ffd166]" />
               About Us
               <SparkIcon className="h-3 w-3 text-[#ffd166]" />
@@ -196,7 +200,7 @@ export default function AboutSection() {
 
             <h2
               ref={headingRef}
-              className="font-display text-5xl uppercase leading-[0.95] tracking-tight text-[#3a1f17] md:text-6xl lg:text-7xl xl:text-[5.5rem]"
+              className="font-display text-4xl uppercase leading-[0.95] tracking-tight text-[#3a1f17] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem]"
             >
               <span className="block overflow-hidden pb-1">
                 <span data-line className="inline-block will-change-transform">
@@ -206,12 +210,12 @@ export default function AboutSection() {
               <span className="block overflow-hidden pb-1">
                 <span
                   data-line
-                  className="relative inline-flex items-end gap-4 text-[#e3242b] will-change-transform"
+                  className="relative inline-flex items-end gap-3 text-[#e3242b] will-change-transform sm:gap-4"
                 >
                   <span>You Smile</span>
                   <span
                     aria-hidden="true"
-                    className="relative inline-block h-10 w-16 shrink-0 md:h-12 md:w-20"
+                    className="relative inline-block h-8 w-12 shrink-0 sm:h-10 sm:w-16 md:h-12 md:w-20"
                   >
                     <Image
                       src="/smilyface.svg"
@@ -225,7 +229,7 @@ export default function AboutSection() {
               </span>
             </h2>
 
-            <div className="mt-10 flex items-center gap-5">
+            <div className="mt-8 flex items-center gap-5 md:mt-10">
               <a
                 href="https://www.instagram.com/donut_drool/"
                 target="_blank"
@@ -267,25 +271,25 @@ export default function AboutSection() {
               </span>
             </div>
 
-            <div className="mt-12 grid grid-cols-3 gap-4 sm:gap-6">
+            <div className="mt-10 grid grid-cols-3 gap-3 sm:gap-6 md:mt-12">
               {STATS.map((stat, i) => (
                 <div
                   key={stat.label}
                   data-stat
-                  className="flex flex-col items-start border-l-2 pl-4"
+                  className="flex flex-col items-start border-l-2 pl-3 sm:pl-4"
                   style={{ borderColor: i % 2 === 0 ? "#e3242b" : "#ffd166" }}
                 >
-                  <span className="font-display text-4xl leading-none text-[#3a1f17] md:text-5xl">
+                  <span className="font-display text-3xl leading-none text-[#3a1f17] sm:text-4xl md:text-5xl">
                     {stat.value}
                   </span>
-                  <span className="mt-2 font-sans text-[10px] uppercase tracking-[0.3em] text-[#5a3526]">
+                  <span className="mt-2 font-sans text-[9px] uppercase tracking-[0.25em] text-[#5a3526] sm:text-[10px] sm:tracking-[0.3em]">
                     {stat.label}
                   </span>
                 </div>
               ))}
             </div>
 
-            <div className="mt-10 flex items-center gap-2">
+            <div className="mt-8 flex items-center gap-2 md:mt-10">
               <span className="block h-1 w-10 rounded-full bg-[#e3242b]" />
               <span className="block h-1 w-3 rounded-full bg-[#ffd166]" />
               <span className="block h-1 w-6 rounded-full bg-[#ff8aa8]" />
@@ -300,22 +304,22 @@ export default function AboutSection() {
             <div className="relative" data-paragraph>
               <span
                 aria-hidden="true"
-                className="absolute -left-3 -top-8 font-display text-7xl leading-none text-[#e3242b]/30"
+                className="absolute -left-1 -top-6 font-display text-5xl leading-none text-[#e3242b]/30 md:-left-3 md:-top-8 md:text-7xl"
               >
                 &ldquo;
               </span>
-              <p className="relative font-display text-2xl uppercase leading-[1.15] tracking-tight text-[#3a1f17] md:text-3xl lg:text-[2rem]">
+              <p className="relative font-display text-xl uppercase leading-[1.15] tracking-tight text-[#3a1f17] sm:text-2xl md:text-3xl lg:text-[2rem]">
                 Built on a simple belief — that
                 <span className="text-[#e3242b]"> small moments of happiness</span>{" "}
                 matter.
               </p>
-              <p className="mt-6 font-sans text-base leading-relaxed text-[#5a3526]">
+              <p className="mt-5 font-sans text-sm leading-relaxed text-[#5a3526] sm:text-base md:mt-6">
                 Every donut is made fresh with care, using thoughtfully crafted
                 recipes and quality ingredients. But beyond the products, what
                 we truly hope to create is a feeling — a slower moment in a
                 busy day, a shared smile, a little softness in everyday life.
               </p>
-              <p className="mt-5 font-sans text-base leading-relaxed text-[#5a3526]">
+              <p className="mt-4 font-sans text-sm leading-relaxed text-[#5a3526] sm:text-base md:mt-5">
                 Proudly built in Nepal, Donut Drool exists to remind people to
                 pause, enjoy the little things, and{" "}
                 <span className="font-display uppercase tracking-wide text-[#e3242b]">

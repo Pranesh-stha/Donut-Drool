@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import type { Group } from "three";
 import DonutModel from "./DonutModel";
 
@@ -34,7 +34,7 @@ const BURST_DURATION = 2.05;
 const BURST_START_POSITION: [number, number, number] = [0, 0, ZOOM_END_Z];
 const BURST_START_ROTATION: [number, number, number] = [ZOOM_END_X_TILT, 0, 0];
 
-const BURST_DONUTS: DonutPose[] = [
+const BURST_DONUTS_DESKTOP: DonutPose[] = [
   {
     position: [-2.35, 0.15, 4.05],
     rotation: [Math.PI / 2 + 0.1, 0.6 + Math.PI / 2, -0.35],
@@ -85,6 +85,55 @@ const BURST_DONUTS: DonutPose[] = [
   },
 ];
 
+// On portrait/mobile aspect, the desktop poses fly off the sides and most of
+// the donuts end up clipped. We pull x positions inward, lift the top donuts
+// above the headline and push the bottom donuts below the CTA, and shrink the
+// lead pair so they don't overpower the narrow viewport.
+const BURST_DONUTS_MOBILE: DonutPose[] = [
+  {
+    position: [-1.55, 2.15, 4.4],
+    rotation: [Math.PI / 2 + 0.1, 0.6 + Math.PI / 2, -0.35],
+    scale: 2.3,
+    src: FLAVORS[5],
+  },
+  {
+    position: [1.55, 2.25, 4.4],
+    rotation: [Math.PI / 2 - 0.16, -0.22, 0.12],
+    scale: 2.3,
+    src: FLAVORS[4],
+  },
+  {
+    position: [-1.95, 2.85, 2.4],
+    rotation: [Math.PI / 2 - 0.45, 0.35, -0.55],
+    scale: 1.3,
+    src: FLAVORS[0],
+  },
+  {
+    position: [2.0, 2.9, 2.7],
+    rotation: [Math.PI / 2 - 0.32, -0.65, 0.4],
+    scale: 1.45,
+    src: FLAVORS[3],
+  },
+  {
+    position: [-1.7, -2.35, 2.8],
+    rotation: [Math.PI / 2 - 0.1, 0.2, 0.5],
+    scale: 1.55,
+    src: FLAVORS[6],
+  },
+  {
+    position: [1.45, -2.55, 2.5],
+    rotation: [Math.PI / 2 - 0.28, -0.4, -0.35],
+    scale: 1.35,
+    src: FLAVORS[0],
+  },
+  {
+    position: [0.1, -3.05, 1.6],
+    rotation: [Math.PI / 2 - 0.55, 0.1, -0.1],
+    scale: 0.9,
+    src: FLAVORS[2],
+  },
+];
+
 const easeInCubic = (t: number) => t * t * t;
 const easeBurstSettle = (t: number) => 1 - Math.pow(1 - t, 5.2);
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
@@ -94,6 +143,8 @@ export default function DonutScene() {
   const mainRef = useRef<Group>(null);
   const burstRefs = useRef<(Group | null)[]>([]);
   const startTimeRef = useRef<number | null>(null);
+  const aspect = useThree((state) => state.viewport.aspect);
+  const BURST_DONUTS: DonutPose[] = aspect < 0.8 ? BURST_DONUTS_MOBILE : BURST_DONUTS_DESKTOP;
 
   useFrame((state) => {
     const main = mainRef.current;

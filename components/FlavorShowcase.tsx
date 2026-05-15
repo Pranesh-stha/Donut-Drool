@@ -167,6 +167,9 @@ export default function FlavorShowcase() {
     () => {
       const heading = headingRef.current;
       if (!heading) return;
+      // The reveal animations only run on >= md, since on mobile we hide the
+      // heading entirely. Skip work to keep the carousel scroll smooth.
+      if (!window.matchMedia("(min-width: 768px)").matches) return;
 
       const verticalWords = heading.querySelectorAll<HTMLSpanElement>(
         "[data-reveal-y]"
@@ -331,15 +334,15 @@ export default function FlavorShowcase() {
 
   return (
     <section id="menu" ref={sectionRef} className="relative w-full overflow-hidden bg-white">
-      <div className="grid min-h-screen grid-cols-1 md:grid-cols-[42%_58%]">
-        <div className="flex items-center px-8 pt-20 pb-10 md:sticky md:top-0 md:h-screen md:px-14 md:py-0 lg:px-20">
+      <div className="grid grid-cols-1 md:min-h-screen md:grid-cols-[42%_58%]">
+        <div className="flex items-center px-6 pt-16 pb-6 md:sticky md:top-0 md:h-screen md:px-14 md:py-0 md:pb-10 md:pt-20 lg:px-20">
           <div className="max-w-xl">
-            <span className="mb-6 inline-block rounded-full bg-[#3a1f17] px-4 py-1.5 font-sans text-xs uppercase tracking-[0.25em] text-cream">
+            <span className="mb-5 inline-block rounded-full bg-[#3a1f17] px-4 py-1.5 font-sans text-xs uppercase tracking-[0.25em] text-cream md:mb-6">
               Our Donut
             </span>
             <h2
               ref={headingRef}
-              className="font-display text-5xl uppercase leading-[0.95] tracking-tight text-[#3a1f17] md:text-6xl lg:text-7xl xl:text-8xl"
+              className="hidden font-display uppercase leading-[0.95] tracking-tight text-[#3a1f17] md:block md:text-6xl lg:text-7xl xl:text-8xl"
             >
               <span className="block overflow-hidden pb-2">
                 <span data-reveal-y className="inline-block will-change-transform">
@@ -366,7 +369,7 @@ export default function FlavorShowcase() {
               </span>
             </h2>
 
-            <div className="mt-10 flex items-center gap-3">
+            <div className="mt-7 flex items-center gap-3 md:mt-10">
               <button
                 type="button"
                 onClick={() => scrollByCard(-1)}
@@ -416,12 +419,12 @@ export default function FlavorShowcase() {
           onKeyDown={onKeyDown}
           className="flavor-rail relative flex cursor-grab items-center overflow-x-auto overflow-y-hidden focus:outline-none md:h-screen"
         >
-          <div className="flex gap-6 px-6 py-16 md:gap-8 md:px-12 md:py-0 md:pr-32">
+          <div className="grid auto-cols-max grid-flow-col grid-rows-2 gap-4 px-6 pb-12 pt-2 md:flex md:gap-8 md:px-12 md:py-0 md:pr-32">
             {FLAVORS.map((flavor, i) => (
               <article
                 key={flavor.name}
                 data-flavor-card
-                className="relative flex h-[70vh] max-h-[560px] min-h-[420px] w-[78vw] max-w-[360px] flex-shrink-0 flex-col justify-between overflow-hidden rounded-[2.25rem] p-7 shadow-[0_20px_40px_-20px_rgba(58,31,23,0.4)] md:w-[26vw] md:min-w-[320px]"
+                className="relative flex h-[40vh] max-h-[300px] min-h-[220px] w-[70vw] max-w-[280px] flex-shrink-0 flex-col justify-between overflow-hidden rounded-[1.75rem] p-5 shadow-[0_20px_40px_-20px_rgba(58,31,23,0.4)] md:h-[70vh] md:max-h-[560px] md:min-h-[420px] md:w-[26vw] md:min-w-[320px] md:rounded-[2.25rem] md:p-7"
                 style={{ backgroundColor: flavor.cardBg }}
               >
                 <div
@@ -429,7 +432,8 @@ export default function FlavorShowcase() {
                   style={{ color: flavor.textColor }}
                 >
                   <span>
-                    0{i + 1} / 0{FLAVORS.length}
+                    {String(i + 1).padStart(2, "0")} /{" "}
+                    {String(FLAVORS.length).padStart(2, "0")}
                   </span>
                   <span
                     className="rounded-full px-3 py-1 text-[10px]"
@@ -442,13 +446,13 @@ export default function FlavorShowcase() {
                   </span>
                 </div>
 
-                <div className="my-4 flex flex-1 items-center justify-center">
-                  <div className="pointer-events-none relative aspect-square w-[88%] drop-shadow-[0_18px_30px_rgba(58,31,23,0.25)]">
+                <div className="my-1 flex flex-1 items-center justify-center md:my-4">
+                  <div className="pointer-events-none relative aspect-square w-[52%] drop-shadow-[0_18px_30px_rgba(58,31,23,0.25)] md:w-[88%]">
                     <Image
                       src={flavor.image}
                       alt={flavor.name}
                       fill
-                      sizes="(max-width: 768px) 78vw, 26vw"
+                      sizes="(max-width: 768px) 70vw, 26vw"
                       className="object-contain"
                       draggable={false}
                     />
@@ -457,14 +461,14 @@ export default function FlavorShowcase() {
 
                 <div>
                   <h3
-                    className="font-display text-3xl uppercase leading-none md:text-4xl"
+                    className="font-display text-xl uppercase leading-none md:text-4xl"
                     style={{ color: flavor.textColor }}
                   >
                     {flavor.name}
                   </h3>
-                  <div className="mt-4">
+                  <div className="mt-2 md:mt-4">
                     <span
-                      className="font-display text-2xl"
+                      className="font-display text-lg md:text-2xl"
                       style={{ color: flavor.textColor }}
                     >
                       {flavor.price}

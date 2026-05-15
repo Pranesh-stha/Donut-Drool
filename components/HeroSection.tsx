@@ -12,34 +12,34 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-0">
         <DonutCanvas />
       </div>
-      <div className="pointer-events-none absolute inset-0 z-10 flex translate-y-6 flex-col items-center justify-center px-6 text-center md:translate-y-10">
+      <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center px-5 text-center md:translate-y-10 md:px-6">
         <div className="relative">
           <span
             aria-hidden="true"
-            className="hero-sparkle hero-sparkle-left absolute -left-5 top-1 text-xl text-donut-red md:-left-8 md:top-2 md:text-3xl"
+            className="hero-sparkle hero-sparkle-left absolute -left-4 top-1 text-lg text-donut-red sm:-left-5 sm:text-xl md:-left-8 md:top-2 md:text-3xl"
           >
             ✦
           </span>
           <span
             aria-hidden="true"
-            className="hero-sparkle hero-sparkle-right absolute -right-5 top-1 text-xl text-donut-red md:-right-8 md:top-2 md:text-3xl"
+            className="hero-sparkle hero-sparkle-right absolute -right-4 top-1 text-lg text-donut-red sm:-right-5 sm:text-xl md:-right-8 md:top-2 md:text-3xl"
           >
             ✦
           </span>
-          <h1 className="hero-headline font-display text-5xl uppercase leading-[0.9] tracking-tight text-donut-red md:text-7xl lg:text-[6rem]">
+          <h1 className="hero-headline font-display text-4xl uppercase leading-[0.9] tracking-tight text-donut-red sm:text-5xl md:text-7xl lg:text-[6rem]">
             Freaking Delicious
           </h1>
         </div>
-        <div className="hero-smile-banner mt-4 inline-block rounded-sm bg-donut-red px-6 py-2 font-display text-3xl uppercase leading-none tracking-wide text-white shadow-xl shadow-donut-red/25 md:mt-5 md:px-8 md:py-3 md:text-5xl lg:text-[3.75rem]">
+        <div className="hero-smile-banner mt-3 inline-block rounded-sm bg-donut-red px-5 py-2 font-display text-2xl uppercase leading-none tracking-wide text-white shadow-xl shadow-donut-red/25 sm:mt-4 sm:px-6 sm:text-3xl md:mt-5 md:px-8 md:py-3 md:text-5xl lg:text-[3.75rem]">
           Every Bite Is A Treat
         </div>
-        <p className="hero-support-copy mt-8 max-w-xl text-base font-medium leading-7 text-donut-dark/80 md:mt-10 md:text-lg md:leading-8">
+        <p className="hero-support-copy mt-6 max-w-xs text-sm font-medium leading-6 text-donut-dark/80 sm:max-w-md sm:text-base sm:leading-7 md:mt-10 md:max-w-xl md:text-lg md:leading-8">
           We will make you smile a little more with our eggless donuts. The best
           Nepali donuts you&apos;ll try. <span aria-hidden="true">😍</span>
         </p>
         <a
           href="#menu"
-          className="hero-menu-button pointer-events-auto mt-7 inline-flex items-center gap-2.5 rounded-full bg-donut-red px-8 py-4 text-sm font-black uppercase tracking-[0.18em] text-white shadow-xl shadow-donut-red/30 transition-transform hover:scale-105 md:mt-9 md:px-11 md:py-4 md:text-base"
+          className="hero-menu-button pointer-events-auto mt-6 inline-flex items-center gap-2.5 rounded-full bg-donut-red px-6 py-3.5 text-xs font-black uppercase tracking-[0.18em] text-white shadow-xl shadow-donut-red/30 transition-transform hover:scale-105 sm:px-8 sm:py-4 sm:text-sm md:mt-9 md:px-11 md:py-4 md:text-base"
         >
           <svg
             aria-hidden="true"

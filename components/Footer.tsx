@@ -115,8 +115,8 @@ export default function Footer() {
       </svg>
 
       <div className="relative mx-auto max-w-7xl px-8 pt-20 pb-12 md:px-14 md:pt-24 lg:px-20">
-        <div className="grid gap-14 md:grid-cols-[1.4fr_1fr_1fr] md:gap-10 lg:gap-16">
-          <div>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-10 md:gap-y-14 lg:gap-16">
+          <div className="col-span-2 md:col-span-1">
             <Image
               src="/logo.png"
               alt="Donut Drool"

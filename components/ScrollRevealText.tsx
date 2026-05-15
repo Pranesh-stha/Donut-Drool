@@ -39,9 +39,9 @@ export default function ScrollRevealText() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-screen w-full items-center justify-center bg-[#3a1f17] px-6 pb-56 pt-40 md:pb-72 md:pt-56"
+      className="relative flex min-h-screen w-full items-center justify-center bg-[#3a1f17] px-6 pb-32 pt-28 sm:pb-44 sm:pt-36 md:pb-72 md:pt-56"
     >
-      <p className="max-w-5xl text-center font-display text-3xl uppercase leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
+      <p className="max-w-5xl text-center font-display text-2xl uppercase leading-[1.1] tracking-tight sm:text-3xl md:text-5xl lg:text-6xl">
         {words.map((word, i) => (
           <span
             key={`${word}-${i}`}

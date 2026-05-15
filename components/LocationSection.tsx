@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -104,10 +104,27 @@ const MARKER_POS = [
   { left: "40%", top: "60%" },
 ];
 
-const CARD_POS = [
+type CardPos = {
+  left?: string;
+  right?: string;
+  top?: string;
+  bottom?: string;
+};
+
+const CARD_POS: CardPos[] = [
   { left: "63%", top: "10%" },
   { left: "81%", top: "53%" },
   { left: "8%", top: "70%" },
+];
+
+// On narrow viewports the desktop left:81% etc. push cards off-screen.
+// Anchor right-side cards with `right:` and pull positions inward; the
+// bottom card is anchored with `bottom:` so its content grows upward
+// within the map bounds instead of being clipped by the section.
+const CARD_POS_MOBILE: CardPos[] = [
+  { right: "2%", top: "4%" },
+  { right: "2%", top: "54%" },
+  { left: "2%", bottom: "2%" },
 ];
 
 const CONNECTOR_DOTS = [
@@ -133,6 +150,17 @@ const CONNECTOR_DOTS = [
 export default function LocationSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1023px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const cardPositions = isMobile ? CARD_POS_MOBILE : CARD_POS;
 
   useGSAP(
     () => {
@@ -147,6 +175,15 @@ export default function LocationSection() {
       );
       const routePaths = root.querySelectorAll<SVGPathElement>("[data-route]");
       const cards = root.querySelectorAll<HTMLElement>("[data-card]");
+
+      // Below lg we render the map statically — no scroll animation. Just
+      // force everything to its end state so it's visible on mount.
+      if (!window.matchMedia("(min-width: 1024px)").matches) {
+        gsap.set(markers, { autoAlpha: 1, scale: 1 });
+        gsap.set(connectorDots, { autoAlpha: 1, scale: 1 });
+        gsap.set(cards, { autoAlpha: 1, y: 0 });
+        return;
+      }
 
       gsap.set(markers, {
         autoAlpha: 0,
@@ -226,24 +263,50 @@ export default function LocationSection() {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#FDF4ED]"
     >
-      <div className="relative grid min-h-screen grid-cols-1 lg:grid-cols-[65%_35%]">
-        <div className="flex items-center px-8 pt-20 pb-16 md:px-14 lg:order-2 lg:px-16 lg:py-0 xl:px-20">
+      <div className="px-6 pt-14 pb-2 md:px-14 md:pt-20 md:pb-4 lg:hidden">
+        <div className="mb-4 flex items-center gap-2">
+          <MiniPinIcon className="h-4 w-4" />
+          <span className="font-sans text-xs uppercase tracking-[0.32em] text-[#3a1f17]">
+            Locations
+          </span>
+        </div>
+        <p className="inline-flex items-center gap-2 font-sans text-[10px] uppercase tracking-[0.28em] text-[#e3242b]">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 20 20"
+            className="h-3.5 w-3.5"
+            fill="none"
+          >
+            <path
+              d="M10 2.5v3M10 14.5v3M2.5 10h3M14.5 10h3M4.7 4.7l2.1 2.1M13.2 13.2l2.1 2.1M4.7 15.3l2.1-2.1M13.2 6.8l2.1-2.1"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+            />
+            <circle cx="10" cy="10" r="2.4" fill="currentColor" />
+          </svg>
+          <span>Tap a pin or card to open in Google Maps</span>
+        </p>
+      </div>
+
+      <div className="relative grid grid-cols-1 lg:min-h-screen lg:grid-cols-[65%_35%]">
+        <div className="hidden items-center px-6 pt-16 pb-10 md:px-14 md:pt-20 md:pb-16 lg:order-2 lg:flex lg:px-16 lg:py-0 xl:px-20">
           <div className="max-w-xl">
-            <div className="mb-8 flex items-center gap-2">
+            <div className="mb-6 flex items-center gap-2 md:mb-8">
               <MiniPinIcon className="h-4 w-4" />
               <span className="font-sans text-xs uppercase tracking-[0.32em] text-[#3a1f17]">
                 Locations
               </span>
             </div>
-            <h2 className="font-display text-5xl uppercase leading-[0.92] text-[#3a1f17] md:text-6xl xl:text-7xl">
+            <h2 className="font-display text-4xl uppercase leading-[0.92] text-[#3a1f17] sm:text-5xl md:text-6xl xl:text-7xl">
               Sweet Stops
               <br />
               <span className="text-[#e3242b]">Around</span>
               <br />
-              <span className="inline-flex flex-wrap items-baseline gap-x-4">
+              <span className="inline-flex flex-wrap items-baseline gap-x-3 md:gap-x-4">
                 <span>The</span>
                 <span className="relative inline-block -rotate-2 align-baseline">
-                  <span className="relative z-10 inline-block font-display text-5xl uppercase leading-none text-[#ff8aa8] [text-shadow:3px_3px_0_#e3242b] md:text-6xl xl:text-7xl">
+                  <span className="relative z-10 inline-block font-display text-4xl uppercase leading-none text-[#ff8aa8] [text-shadow:3px_3px_0_#e3242b] sm:text-5xl md:text-6xl xl:text-7xl">
                     Valley
                   </span>
                   <span className="absolute -right-3 top-1 h-3 w-3 rounded-full bg-[#e3242b]" />
@@ -265,11 +328,11 @@ export default function LocationSection() {
                 </span>
               </span>
             </h2>
-            <p className="mt-10 max-w-sm font-sans text-base leading-relaxed text-[#5a3526]">
+            <p className="mt-8 max-w-sm font-sans text-base leading-relaxed text-[#5a3526] md:mt-10">
               Three cozy locations serving fresh eggless donuts every day. Drop
               by for a warm box and a sweet little break.
             </p>
-            <p className="mt-5 inline-flex items-center gap-2 font-sans text-xs uppercase tracking-[0.28em] text-[#e3242b]">
+            <p className="mt-5 hidden items-center gap-2 font-sans text-xs uppercase tracking-[0.28em] text-[#e3242b] lg:inline-flex">
               <svg
                 aria-hidden="true"
                 viewBox="0 0 20 20"
@@ -286,11 +349,12 @@ export default function LocationSection() {
               </svg>
               <span>Tap a pin or location to open in Google Maps</span>
             </p>
+
           </div>
         </div>
 
-        <div className="relative h-[680px] w-full lg:order-1 lg:h-screen">
-          <div className="absolute inset-x-[6%] inset-y-[8%]">
+        <div className="relative aspect-[1370/1148] w-full lg:order-1 lg:aspect-auto lg:h-screen">
+          <div className="absolute inset-x-[4%] inset-y-[4%] lg:inset-x-[6%] lg:inset-y-[8%]">
             <MapBackground />
 
             <svg
@@ -375,7 +439,7 @@ export default function LocationSection() {
               );
             })}
 
-            {CARD_POS.map((pos, i) => {
+            {cardPositions.map((pos, i) => {
               const loc = LOCATIONS[i];
               const mapsHref = loc.mapsUrl;
               const isActive = hoveredIdx === i;
@@ -392,21 +456,27 @@ export default function LocationSection() {
                   onMouseLeave={() => setHoveredIdx(null)}
                   onFocus={() => setHoveredIdx(i)}
                   onBlur={() => setHoveredIdx(null)}
-                  className={`absolute z-30 block max-w-[255px] cursor-pointer transition-transform duration-300 ease-out ${
+                  className={`absolute z-30 block max-w-[160px] cursor-pointer transition-transform duration-300 ease-out lg:max-w-[255px] ${
                     isActive ? "-translate-y-1" : ""
                   }`}
-                  style={{ left: pos.left, top: pos.top, opacity: 0 }}
+                  style={{
+                    left: pos.left,
+                    right: pos.right,
+                    top: pos.top,
+                    bottom: pos.bottom,
+                    opacity: 0,
+                  }}
                 >
-                  <div className="flex items-baseline gap-3 leading-none">
+                  <div className="flex items-baseline gap-2 leading-none lg:gap-3">
                     <span
-                      className={`font-display text-5xl text-[#e3242b] origin-left transition-transform duration-300 ease-out ${
+                      className={`font-display text-3xl text-[#e3242b] origin-left transition-transform duration-300 ease-out lg:text-5xl ${
                         isActive ? "scale-110" : ""
                       }`}
                     >
                       {loc.num}
                     </span>
                     <span
-                      className={`font-display text-3xl uppercase transition-colors duration-300 ${
+                      className={`font-display text-xl uppercase transition-colors duration-300 lg:text-3xl ${
                         isActive ? "text-[#e3242b]" : "text-[#3a1f17]"
                       }`}
                     >
@@ -414,19 +484,19 @@ export default function LocationSection() {
                     </span>
                   </div>
                   <div
-                    className={`mt-4 flex items-center gap-2 font-sans text-sm font-medium transition-colors duration-300 ${
+                    className={`mt-2 flex items-start gap-1.5 font-sans text-[11px] font-medium leading-tight transition-colors duration-300 lg:mt-4 lg:items-center lg:gap-2 lg:text-sm ${
                       isActive ? "text-[#e3242b]" : "text-[#3a1f17]"
                     }`}
                   >
-                    <MiniPinIcon className="h-4 w-4 flex-shrink-0" />
+                    <MiniPinIcon className="mt-0.5 h-3 w-3 flex-shrink-0 lg:mt-0 lg:h-4 lg:w-4" />
                     <span
                       className={`underline-offset-4 ${isActive ? "underline" : ""}`}
                     >
                       {loc.address}
                     </span>
                   </div>
-                  <div className="mt-2 flex items-center gap-2 font-sans text-sm font-medium text-[#3a1f17]">
-                    <ClockIcon className="h-4 w-4 flex-shrink-0" />
+                  <div className="mt-1 flex items-center gap-1.5 font-sans text-[11px] font-medium text-[#3a1f17] lg:mt-2 lg:gap-2 lg:text-sm">
+                    <ClockIcon className="h-3 w-3 flex-shrink-0 lg:h-4 lg:w-4" />
                     <span>{loc.hours}</span>
                   </div>
                 </a>
