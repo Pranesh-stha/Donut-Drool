@@ -1,4 +1,4 @@
-import { MENU_ITEMS, OUTLETS } from "@/lib/site";
+import { DRINKS_COLD, DRINKS_HOT, MENU_ITEMS, OUTLETS } from "@/lib/site";
 
 // Screen-reader-only (and crawler-visible) block. Tailwind's `sr-only`
 // applies clip + 1px sizing so the content is fully accessible to assistive
@@ -50,6 +50,36 @@ export default function SeoIntro() {
           </li>
         ))}
       </ul>
+
+      <h2>Donut Drool drinks menu</h2>
+      <p>
+        Donut Drool serves a full menu of handcrafted drinks — smoothies,
+        iced drinks, shakes and hot drinks — perfect to pair with a fresh
+        donut. Prices range from Rs. 255 to Rs. 425.
+      </p>
+      {(["smoothie", "iced", "shake", "hot"] as const).map((cat) => {
+        const items = [...DRINKS_COLD, ...DRINKS_HOT].filter(
+          (d) => d.category === cat,
+        );
+        const labels: Record<typeof cat, string> = {
+          smoothie: "Smoothies",
+          iced: "Iced drinks",
+          shake: "Shakes",
+          hot: "Hot drinks",
+        };
+        return (
+          <div key={cat}>
+            <h3>{labels[cat]}</h3>
+            <ul>
+              {items.map((d) => (
+                <li key={d.name}>
+                  {d.name} — Rs. {d.price}. {d.description}
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
 
       <h2>Frequently asked questions about Donut Drool</h2>
       <dl>

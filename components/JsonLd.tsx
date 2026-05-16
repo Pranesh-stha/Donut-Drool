@@ -1,4 +1,6 @@
 import {
+  DRINKS_COLD,
+  DRINKS_HOT,
   MENU_ITEMS,
   OUTLETS,
   SITE_DESCRIPTION,
@@ -76,34 +78,58 @@ function localBusinessSchemas() {
 }
 
 function menuSchema() {
+  const offer = (price: string) => ({
+    "@type": "Offer",
+    price,
+    priceCurrency: "NPR",
+    availability: "https://schema.org/InStock",
+  });
+
+  const allDrinks = [...DRINKS_COLD, ...DRINKS_HOT];
+  const drinksBy = (category: "smoothie" | "iced" | "shake" | "hot") =>
+    allDrinks.filter((d) => d.category === category);
+
+  const drinkSection = (
+    name: string,
+    items: typeof allDrinks,
+  ) => ({
+    "@type": "MenuSection",
+    name,
+    hasMenuItem: items.map((d) => ({
+      "@type": "MenuItem",
+      name: d.name,
+      description: d.description,
+      image: `${SITE_URL}${encodeURI(d.image)}`,
+      offers: offer(d.price),
+    })),
+  });
+
   return {
     "@context": "https://schema.org",
     "@type": "Menu",
     "@id": `${SITE_URL}/#menu`,
     name: "Donut Drool Menu",
     description:
-      "Donut Drool's full eggless donut menu, freshly made daily at all three Kathmandu valley outlets.",
+      "Donut Drool's full menu — donuts and handcrafted drinks, freshly made daily at all three Kathmandu valley outlets.",
     inLanguage: "en",
-    hasMenuSection: {
-      "@type": "MenuSection",
-      name: "Donuts",
-      hasMenuItem: MENU_ITEMS.map((item) => ({
-        "@type": "MenuItem",
-        name: item.name,
-        description: item.description,
-        image: `${SITE_URL}${item.image}`,
-        // Only eggless flavours are marked vegetarian-suitable. The few
-        // speciality flavours that contain egg omit this field so search
-        // engines don't surface inaccurate dietary claims.
-        ...(item.eggless ? { suitableForDiet: "https://schema.org/VegetarianDiet" } : {}),
-        offers: {
-          "@type": "Offer",
-          price: item.price,
-          priceCurrency: "NPR",
-          availability: "https://schema.org/InStock",
-        },
-      })),
-    },
+    hasMenuSection: [
+      {
+        "@type": "MenuSection",
+        name: "Donuts",
+        hasMenuItem: MENU_ITEMS.map((item) => ({
+          "@type": "MenuItem",
+          name: item.name,
+          description: item.description,
+          image: `${SITE_URL}${item.image}`,
+          ...(item.eggless ? { suitableForDiet: "https://schema.org/VegetarianDiet" } : {}),
+          offers: offer(item.price),
+        })),
+      },
+      drinkSection("Smoothies", drinksBy("smoothie")),
+      drinkSection("Iced Drinks", drinksBy("iced")),
+      drinkSection("Shakes", drinksBy("shake")),
+      drinkSection("Hot Drinks", drinksBy("hot")),
+    ],
   };
 }
 

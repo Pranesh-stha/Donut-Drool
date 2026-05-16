@@ -119,3 +119,28 @@ body {
   animation: loader-spin 2.4s linear infinite;
   transform-origin: 50% 50%;
 }
+
+@keyframes drink-fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.drinks-rail {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+}
+
+.drinks-rail::-webkit-scrollbar {
+  display: none;
+}
+

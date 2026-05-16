@@ -1,4 +1,5 @@
 import AboutSection from "@/components/AboutSection";
+import DrinksShowcase from "@/components/DrinksShowcase";
 import FlavorShowcase from "@/components/FlavorShowcase";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
@@ -17,6 +18,7 @@ export default function Home() {
       <HeroSection />
       <ScrollRevealText />
       <FlavorShowcase />
+      <DrinksShowcase />
       <AboutSection />
       <LocationSection />
       <Footer />

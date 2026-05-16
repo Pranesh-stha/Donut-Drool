@@ -67,6 +67,29 @@ export const OUTLETS = [
   },
 ] as const;
 
+export type DrinkCategory = "smoothie" | "iced" | "shake" | "hot";
+
+export const DRINKS_COLD = [
+  { name: "Berrylicious Smoothie", price: "365", image: "/colddrinks/Berrylicious Smoothie 365.png", description: "Mixed-berry smoothie blended with ice.", category: "smoothie" as DrinkCategory },
+  { name: "PB Power Smoothie", price: "365", image: "/colddrinks/PB Power Smoothie 365.png", description: "Peanut butter power smoothie.", category: "smoothie" as DrinkCategory },
+  { name: "Iced Strawberry Mocha", price: "375", image: "/colddrinks/Iced Strawberry Mocha 375.png", description: "Strawberry mocha with espresso, milk and ice.", category: "smoothie" as DrinkCategory },
+  { name: "Mad Mango", price: "375", image: "/colddrinks/Mad Mango 375.png", description: "Bold mango drink — fruity, creamy, cold.", category: "smoothie" as DrinkCategory },
+  { name: "Iced Hibiscus Tea", price: "275", image: "/colddrinks/Iced Hibiscus Tea 275.png", description: "Floral hibiscus tea served chilled.", category: "iced" as DrinkCategory },
+  { name: "The Cosmic Drink", price: "375", image: "/colddrinks/The Cosmic Drink 375.png", description: "Donut Drool's signature cosmic blend.", category: "iced" as DrinkCategory },
+  { name: "Cranky Lemonade", price: "275", image: "/colddrinks/Cranky Lemonade 275.png", description: "Tangy fresh lemonade with a kick.", category: "iced" as DrinkCategory },
+  { name: "Choco Brownie Shake", price: "375", image: "/colddrinks/Choco Brownie Shake 375.png", description: "Thick chocolate brownie milkshake.", category: "shake" as DrinkCategory },
+  { name: "Salted Caramel Shake", price: "375", image: "/colddrinks/Salted Caramel Shake 375.png", description: "Sweet-salty caramel milkshake.", category: "shake" as DrinkCategory },
+  { name: "Iced Matcha Latte", price: "275", image: "/colddrinks/Iced Matcha Latte 275.png", description: "Smooth ceremonial-grade matcha latte over ice.", category: "shake" as DrinkCategory },
+  { name: "Coco Matcha", price: "375", image: "/colddrinks/Coco Matcha 375.png", description: "Coconut milk and matcha over ice.", category: "shake" as DrinkCategory },
+] as const;
+
+export const DRINKS_HOT = [
+  { name: "Hot Chocolate", price: "425", image: "/hotdrinks/Hot Chocolate 425.png", description: "Rich, slow-melted hot chocolate.", category: "hot" as DrinkCategory },
+  { name: "Strawberry Mocha", price: "275", image: "/hotdrinks/Strawberry Mocha 275.png", description: "Espresso, strawberry and steamed milk.", category: "hot" as DrinkCategory },
+  { name: "Matcha Latte", price: "255", image: "/hotdrinks/Matcha Latte 255.png", description: "Smooth, frothy matcha latte.", category: "hot" as DrinkCategory },
+  { name: "Caramel Macchiato", price: "275", image: "/hotdrinks/Caramel Macchiato 275.png", description: "Espresso, steamed milk and caramel drizzle.", category: "hot" as DrinkCategory },
+] as const;
+
 export const MENU_ITEMS = [
   { name: "Glazed", price: "55", image: "/menu/glazed55.png", eggless: true, description: "Light, soft, eggless glazed donut — the classic." },
   { name: "Cinnamon", price: "75", image: "/menu/Cinnamon75.png", eggless: true, description: "Warm cinnamon-spiced eggless donut." },
