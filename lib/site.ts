@@ -13,10 +13,15 @@ export const SOCIAL = {
   facebook: "https://www.facebook.com/DonutDrool.Nepal/",
 };
 
+// `name` here must match the exact business name on each outlet's verified
+// Google Business Profile, including capitalisation and punctuation. All
+// three GBPs are registered as "Donut Drool" (no suffix), so the schema
+// uses the same form and differentiates by address. `shortName` is the
+// human-readable neighbourhood label used in the frontend.
 export const OUTLETS = [
   {
     id: "jhamsikhel",
-    name: "Donut Drool — Jhamsikhel",
+    name: "Donut Drool",
     shortName: "Jhamsikhel",
     streetAddress: "Pulchowk",
     locality: "Lalitpur",
@@ -29,10 +34,10 @@ export const OUTLETS = [
   },
   {
     id: "budhanilkantha",
-    name: "Donut Drool — Budhanilkantha",
+    name: "Donut Drool",
     shortName: "Budhanilkantha",
-    streetAddress: "Rudreshwor Chowk",
-    locality: "Kathmandu",
+    streetAddress: "Gulfutar Main Rd, Rudreshwor Chowk",
+    locality: "Budhanilkantha",
     region: "Bagmati",
     postalCode: "44600",
     country: "NP",
@@ -42,7 +47,7 @@ export const OUTLETS = [
   },
   {
     id: "dhapasi",
-    name: "Donut Drool — Dhapasi",
+    name: "Donut Drool",
     shortName: "Dhapasi",
     streetAddress: "Dhapasi",
     locality: "Kathmandu",
