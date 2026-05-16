@@ -35,15 +35,18 @@ export default function SeoIntro() {
         donuts every day of the week.
       </p>
 
-      <h2>Donut Drool eggless donut menu</h2>
+      <h2>Donut Drool donut menu</h2>
       <p>
-        Every donut at Donut Drool is 100% eggless. Prices range from Rs. 110
-        to Rs. 200. Flavours include:
+        Most Donut Drool flavours are 100% eggless. A few speciality flavours
+        — Chocolate Brownie, DD&apos;s Cream Cheese and Tiramisu — do contain
+        egg, and each is clearly labelled. Prices range from Rs. 55 to Rs.
+        345. Flavours include:
       </p>
       <ul>
         {MENU_ITEMS.map((item) => (
           <li key={item.name}>
-            {item.name} — Rs. {item.price}. {item.description}
+            {item.name} — Rs. {item.price}.{" "}
+            {item.eggless ? "Eggless." : "Contains egg."} {item.description}
           </li>
         ))}
       </ul>
@@ -52,8 +55,9 @@ export default function SeoIntro() {
       <dl>
         <dt>Are Donut Drool donuts eggless?</dt>
         <dd>
-          Yes. Every donut on the Donut Drool menu is 100% eggless, made
-          fresh daily.
+          Most flavours on the Donut Drool menu are 100% eggless. Three
+          speciality flavours — Chocolate Brownie, DD&apos;s Cream Cheese and
+          Tiramisu — contain egg, and each is clearly labelled on the menu.
         </dd>
         <dt>Where can I find Donut Drool in Kathmandu?</dt>
         <dd>

@@ -18,145 +18,149 @@ type Flavor = {
   // Some donut PNGs sit inside a larger transparent canvas; scale up to
   // match the visual size of the others.
   imageScale?: number;
+  // Defaults to true. A handful of speciality flavours contain egg.
+  eggless?: boolean;
 };
 
 const FLAVORS: Flavor[] = [
   {
-    name: "Classic Glazed",
-    price: "Rs. 120",
-    image: "/menu/glazed.png",
+    name: "Glazed",
+    price: "Rs. 55",
+    image: "/menu/glazed55.png",
     cardBg: "#ffe9c4",
     textColor: "#3a1f17",
     accent: "#e3242b",
   },
   {
-    name: "Chocolate Icing",
-    price: "Rs. 150",
-    image: "/menu/chocolateIcing.png",
-    cardBg: "#3a1f17",
-    textColor: "#fef6ec",
-    accent: "#ffd166",
-  },
-  {
-    name: "White Sprinkles",
+    name: "Oreo",
     price: "Rs. 165",
-    image: "/menu/whiteIcingSprinkels.png",
-    cardBg: "#fef6ec",
-    textColor: "#3a1f17",
-    accent: "#e3242b",
-  },
-  {
-    name: "Oreo Crunch",
-    price: "Rs. 170",
-    image: "/menu/oreo.png",
+    image: "/menu/oreo165.png",
     cardBg: "#2a2a2a",
     textColor: "#fef6ec",
     accent: "#ffffff",
   },
   {
-    name: "Raspberry",
-    price: "Rs. 160",
-    image: "/menu/raspberry.png",
-    cardBg: "#ffd2dd",
-    textColor: "#3a1f17",
-    accent: "#e3242b",
-  },
-  {
-    name: "Honey Glaze",
-    price: "Rs. 135",
-    image: "/menu/honey.png",
-    cardBg: "#fbe5a5",
+    name: "Custard",
+    price: "Rs. 165",
+    image: "/menu/custard165.png",
+    cardBg: "#fde4b8",
     textColor: "#3a1f17",
     accent: "#a4612a",
   },
   {
-    name: "Choco Chips",
-    price: "Rs. 175",
-    image: "/menu/chocochips.png",
-    cardBg: "#e8d4c0",
-    textColor: "#3a1f17",
-    accent: "#3a1f17",
-    imageScale: 1.35,
-  },
-  {
-    name: "Chocolate Brownie",
-    price: "Rs. 180",
-    image: "/menu/chocolateBrownie.png",
-    cardBg: "#5a3526",
+    name: "Dark Chocolate",
+    price: "Rs. 135",
+    image: "/menu/Darkchocolate135.png",
+    cardBg: "#3a1f17",
     textColor: "#fef6ec",
     accent: "#ffd166",
   },
   {
-    name: "Cookies & Cream",
-    price: "Rs. 170",
-    image: "/menu/cookielike.png",
-    cardBg: "#f0e6d2",
-    textColor: "#3a1f17",
-    accent: "#3a1f17",
-  },
-  {
-    name: "The Actual Custard",
-    price: "Rs. 155",
-    image: "/menu/TheActualCustard.png",
+    name: "White Chocolate",
+    price: "Rs. 135",
+    image: "/menu/whitechocolate135.png",
     cardBg: "#fef6ec",
     textColor: "#3a1f17",
     accent: "#e3242b",
   },
   {
-    name: "Custard Filled",
-    price: "Rs. 150",
-    image: "/menu/custard.png",
-    cardBg: "#fde4b8",
+    name: "Strawberry",
+    price: "Rs. 135",
+    image: "/menu/Sreawberry135.png",
+    cardBg: "#ffd2dd",
     textColor: "#3a1f17",
-    accent: "#a4612a",
+    accent: "#e3242b",
   },
   {
-    name: "Cream Filled",
-    price: "Rs. 145",
-    image: "/menu/creamInMiddle.png",
-    cardBg: "#f7e7d0",
+    name: "Mango",
+    price: "Rs. 135",
+    image: "/menu/Mango135.png",
+    cardBg: "#ffd97a",
     textColor: "#3a1f17",
-    accent: "#7a4a32",
+    accent: "#e3242b",
   },
   {
-    name: "Choco Cream Center",
+    name: "Blueberry",
+    price: "Rs. 135",
+    image: "/menu/blueberry135.png",
+    cardBg: "#c8c5e8",
+    textColor: "#3a1f17",
+    accent: "#4a2b1f",
+  },
+  {
+    name: "Dark Choco Chip",
+    price: "Rs. 155",
+    image: "/menu/Darkchocochip155.png",
+    cardBg: "#e8d4c0",
+    textColor: "#3a1f17",
+    accent: "#3a1f17",
+  },
+  {
+    name: "Mocha",
     price: "Rs. 175",
-    image: "/menu/chocoIcingwithcentercreame.png",
+    image: "/menu/Mocha175.png",
     cardBg: "#4a2b1f",
     textColor: "#fef6ec",
     accent: "#ffd166",
   },
   {
-    name: "DD's Cream Cheese",
-    price: "Rs. 185",
-    image: "/menu/DDsCreamecheese.png",
-    cardBg: "#fff4dc",
-    textColor: "#3a1f17",
-    accent: "#e3242b",
-  },
-  {
-    name: "Kunafa",
-    price: "Rs. 200",
-    image: "/menu/kunafa.png",
-    cardBg: "#f3c98a",
-    textColor: "#3a1f17",
-    accent: "#7a2c0e",
-  },
-  {
-    name: "Cinnamon Brown",
-    price: "Rs. 130",
-    image: "/menu/brown.png",
+    name: "Cinnamon",
+    price: "Rs. 75",
+    image: "/menu/Cinnamon75.png",
     cardBg: "#e8c89a",
     textColor: "#3a1f17",
     accent: "#7a4a32",
   },
   {
-    name: "Just A Donut",
-    price: "Rs. 110",
-    image: "/menu/justAdonut.png",
-    cardBg: "#fde4b8",
+    name: "Chocolate Brownie",
+    price: "Rs. 285",
+    image: "/menu/chocolateBrownie285.png",
+    cardBg: "#5a3526",
+    textColor: "#fef6ec",
+    accent: "#ffd166",
+    eggless: false,
+  },
+  {
+    name: "DD's Cream Cheese",
+    price: "Rs. 285",
+    image: "/menu/DDsCreamecheese285.png",
+    cardBg: "#fff4dc",
+    textColor: "#3a1f17",
+    accent: "#e3242b",
+    eggless: false,
+  },
+  {
+    name: "Salted Caramel",
+    price: "Rs. 255",
+    image: "/menu/SaltedCaremal255.png",
+    cardBg: "#d9a45b",
     textColor: "#3a1f17",
     accent: "#3a1f17",
+  },
+  {
+    name: "Dora Cake",
+    price: "Rs. 175",
+    image: "/menu/DoraCake175.png",
+    cardBg: "#f0e6d2",
+    textColor: "#3a1f17",
+    accent: "#7a4a32",
+  },
+  {
+    name: "Tiramisu",
+    price: "Rs. 285",
+    image: "/menu/TiramisuDonut285.png",
+    cardBg: "#7a4a32",
+    textColor: "#fef6ec",
+    accent: "#ffd166",
+    eggless: false,
+  },
+  {
+    name: "Kunafa",
+    price: "Rs. 345",
+    image: "/menu/kunafa345.png",
+    cardBg: "#f3c98a",
+    textColor: "#3a1f17",
+    accent: "#7a2c0e",
   },
 ];
 
@@ -449,7 +453,7 @@ export default function FlavorShowcase() {
                       color: flavor.cardBg,
                     }}
                   >
-                    Eggless
+                    {flavor.eggless === false ? "Contains Egg" : "Eggless"}
                   </span>
                 </div>
 
@@ -464,7 +468,7 @@ export default function FlavorShowcase() {
                   >
                     <Image
                       src={flavor.image}
-                      alt={`${flavor.name} eggless donut from Donut Drool — fresh in Kathmandu and Lalitpur`}
+                      alt={`${flavor.name} ${flavor.eggless === false ? "" : "eggless "}donut from Donut Drool — fresh in Kathmandu and Lalitpur`}
                       fill
                       sizes="(max-width: 768px) 70vw, 26vw"
                       className="object-contain"

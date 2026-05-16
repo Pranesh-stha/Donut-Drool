@@ -30,7 +30,7 @@ function organizationSchema() {
     description: SITE_DESCRIPTION,
     foundingDate: "2020",
     servesCuisine: ["Donuts", "Desserts", "Bakery"],
-    priceRange: "Rs. 110 – Rs. 200",
+    priceRange: "Rs. 55 – Rs. 345",
     areaServed: [
       { "@type": "City", name: "Kathmandu" },
       { "@type": "City", name: "Lalitpur" },
@@ -69,7 +69,7 @@ function localBusinessSchemas() {
       },
     ],
     servesCuisine: ["Donuts", "Desserts", "Bakery"],
-    priceRange: "Rs. 110 – Rs. 200",
+    priceRange: "Rs. 55 – Rs. 345",
     parentOrganization: { "@id": `${SITE_URL}/#business` },
     sameAs: [SOCIAL.instagram, SOCIAL.facebook],
   }));
@@ -92,7 +92,10 @@ function menuSchema() {
         name: item.name,
         description: item.description,
         image: `${SITE_URL}${item.image}`,
-        suitableForDiet: "https://schema.org/VegetarianDiet",
+        // Only eggless flavours are marked vegetarian-suitable. The few
+        // speciality flavours that contain egg omit this field so search
+        // engines don't surface inaccurate dietary claims.
+        ...(item.eggless ? { suitableForDiet: "https://schema.org/VegetarianDiet" } : {}),
         offers: {
           "@type": "Offer",
           price: item.price,
@@ -115,7 +118,7 @@ function faqSchema() {
         name: "Are Donut Drool donuts eggless?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes — every donut on the Donut Drool menu is 100% eggless, made fresh daily at our Kathmandu and Lalitpur outlets.",
+          text: "Most Donut Drool flavours are 100% eggless. A few speciality flavours — Chocolate Brownie, DD's Cream Cheese and Tiramisu — do contain egg. Every donut is made fresh daily at our Kathmandu and Lalitpur outlets, and each flavour is clearly labelled.",
         },
       },
       {
@@ -139,7 +142,7 @@ function faqSchema() {
         name: "How much do Donut Drool donuts cost?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Donut Drool donuts range from Rs. 110 for a Just A Donut to Rs. 200 for the Kunafa, with 17+ flavours in between.",
+          text: "Donut Drool donuts range from Rs. 55 for a Glazed to Rs. 345 for the Kunafa, with 17 flavours in between.",
         },
       },
       {
