@@ -37,7 +37,7 @@ function organizationSchema() {
       { "@type": "AdministrativeArea", name: "Kathmandu Valley" },
       { "@type": "Country", name: "Nepal" },
     ],
-    sameAs: [SOCIAL.instagram, SOCIAL.facebook],
+    sameAs: [SOCIAL.instagram, SOCIAL.facebook, SOCIAL.tiktok],
     department: OUTLETS.map((o) => ({ "@id": `${SITE_URL}/#${o.id}` })),
   };
 }
@@ -71,7 +71,7 @@ function localBusinessSchemas() {
     servesCuisine: ["Donuts", "Desserts", "Bakery"],
     priceRange: "Rs. 55 – Rs. 345",
     parentOrganization: { "@id": `${SITE_URL}/#business` },
-    sameAs: [SOCIAL.instagram, SOCIAL.facebook],
+    sameAs: [SOCIAL.instagram, SOCIAL.facebook, SOCIAL.tiktok],
   }));
 }
 

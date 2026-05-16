@@ -11,6 +11,7 @@ export const SITE_TAGLINE =
 export const SOCIAL = {
   instagram: "https://www.instagram.com/donut_drool/",
   facebook: "https://www.facebook.com/DonutDrool.Nepal/",
+  tiktok: "https://www.tiktok.com/@donut_drool",
 };
 
 // `name` here must match the exact business name on each outlet's verified
