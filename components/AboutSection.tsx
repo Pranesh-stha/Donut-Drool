@@ -81,8 +81,8 @@ function TikTokIcon({ className }: { className?: string }) {
 }
 
 const STATS = [
-  { value: "2020", label: "Founded" },
-  { value: "12+", label: "Flavors" },
+  { value: "2021", label: "Founded" },
+  { value: "25+", label: "Flavors" },
   { value: "3", label: "Outlets" },
 ];
 

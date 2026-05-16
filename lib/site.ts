@@ -3,7 +3,7 @@ export const SITE_URL = "https://donutdrool.com";
 export const SITE_NAME = "Donut Drool";
 
 export const SITE_DESCRIPTION =
-  "Donut Drool serves Nepal's best eggless donuts — fresh, hand-rolled, and glazed with love. 17+ flavors. Outlets in Jhamsikhel (Pulchowk, Lalitpur), Budhanilkantha and Dhapasi (Kathmandu).";
+  "Donut Drool serves Nepal's best eggless donuts — fresh, hand-rolled, and glazed with love. 25+ flavours. Outlets in Jhamsikhel (Pulchowk, Lalitpur), Budhanilkantha and Dhapasi (Kathmandu).";
 
 export const SITE_TAGLINE =
   "Best Eggless Donuts in Kathmandu & Lalitpur, Nepal";
@@ -32,6 +32,8 @@ export const OUTLETS = [
     mapsUrl: "https://maps.app.goo.gl/xovcC4Acc9qDgWRD8",
     opens: "08:00",
     closes: "20:00",
+    phoneDisplay: "9802367543",
+    phoneE164: "+977-9802367543",
   },
   {
     id: "budhanilkantha",
@@ -45,6 +47,8 @@ export const OUTLETS = [
     mapsUrl: "https://maps.app.goo.gl/cSKFouxQULZqxyC66",
     opens: "08:00",
     closes: "20:00",
+    phoneDisplay: "971-2012391",
+    phoneE164: "+977-9712012391",
   },
   {
     id: "dhapasi",
@@ -58,6 +62,8 @@ export const OUTLETS = [
     mapsUrl: "https://maps.app.goo.gl/qhNSTHFhhgtXmPRaA",
     opens: "08:00",
     closes: "20:00",
+    phoneDisplay: "9861792555",
+    phoneE164: "+977-9861792555",
   },
 ] as const;
 

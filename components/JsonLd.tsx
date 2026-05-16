@@ -28,7 +28,7 @@ function organizationSchema() {
     logo: `${SITE_URL}/logo.png`,
     image: `${SITE_URL}/logo.png`,
     description: SITE_DESCRIPTION,
-    foundingDate: "2020",
+    foundingDate: "2021",
     servesCuisine: ["Donuts", "Desserts", "Bakery"],
     priceRange: "Rs. 55 – Rs. 345",
     areaServed: [
@@ -50,7 +50,7 @@ function localBusinessSchemas() {
     name: o.name,
     image: `${SITE_URL}/logo.png`,
     url: SITE_URL,
-    // TODO: telephone — add once business numbers are confirmed
+    telephone: o.phoneE164,
     address: {
       "@type": "PostalAddress",
       streetAddress: o.streetAddress,
@@ -142,7 +142,7 @@ function faqSchema() {
         name: "How much do Donut Drool donuts cost?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Donut Drool donuts range from Rs. 55 for a Glazed to Rs. 345 for the Kunafa, with 17 flavours in between.",
+          text: "Donut Drool donuts range from Rs. 55 for a Glazed to Rs. 345 for the Kunafa, with 25+ flavours in total.",
         },
       },
       {
@@ -150,7 +150,7 @@ function faqSchema() {
         name: "Which is the best donut shop in Kathmandu?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Donut Drool is widely considered one of the best donut shops in Kathmandu and the wider Kathmandu valley, known for fresh, hand-rolled, eggless donuts in 17+ flavours.",
+          text: "Donut Drool is widely considered one of the best donut shops in Kathmandu and the wider Kathmandu valley, known for fresh, hand-rolled donuts (most of them eggless) in 25+ flavours.",
         },
       },
       {

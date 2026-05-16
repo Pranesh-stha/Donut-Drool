@@ -12,7 +12,7 @@ export default function SeoIntro() {
         Kathmandu Valley, Nepal
       </h1>
       <p>
-        Donut Drool is a Nepali donut shop founded in 2020, serving freshly
+        Donut Drool is a Nepali donut shop founded in 2021, serving freshly
         made eggless donuts across Kathmandu and Lalitpur. We are widely
         considered one of the best donut shops in Nepal, the Kathmandu valley,
         Kathmandu city and Lalitpur, with hand-rolled donuts glazed daily at
@@ -69,7 +69,7 @@ export default function SeoIntro() {
         <dt>Which is the best donut shop in Kathmandu valley?</dt>
         <dd>
           Donut Drool is widely regarded as one of the best donut shops in
-          the Kathmandu valley, with 17+ eggless flavours, fresh daily
+          the Kathmandu valley, with 25+ flavours (most of them eggless), fresh daily
           production and three convenient outlets.
         </dd>
       </dl>

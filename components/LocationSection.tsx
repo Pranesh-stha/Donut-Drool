@@ -13,6 +13,8 @@ type Location = {
   address: string;
   hours: string;
   mapsUrl: string;
+  phoneDisplay: string;
+  phoneTel: string;
 };
 
 const LOCATIONS: Location[] = [
@@ -22,6 +24,8 @@ const LOCATIONS: Location[] = [
     address: "Pulchowk, Lalitpur",
     hours: "8:00 AM - 8:00 PM",
     mapsUrl: "https://maps.app.goo.gl/xovcC4Acc9qDgWRD8",
+    phoneDisplay: "9802367543",
+    phoneTel: "+9779802367543",
   },
   {
     num: "03",
@@ -29,6 +33,8 @@ const LOCATIONS: Location[] = [
     address: "Dhapasi, Kathmandu",
     hours: "8:00 AM - 8:00 PM",
     mapsUrl: "https://maps.app.goo.gl/qhNSTHFhhgtXmPRaA",
+    phoneDisplay: "9861792555",
+    phoneTel: "+9779861792555",
   },
   {
     num: "02",
@@ -36,6 +42,8 @@ const LOCATIONS: Location[] = [
     address: "Rudreshwor Chowk, Kathmandu",
     hours: "8:00 AM - 8:00 PM",
     mapsUrl: "https://maps.app.goo.gl/cSKFouxQULZqxyC66",
+    phoneDisplay: "971-2012391",
+    phoneTel: "+9779712012391",
   },
 ];
 
@@ -86,6 +94,61 @@ function ClockIcon({ className }: { className?: string }) {
   );
 }
 
+function PhoneIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 20 20" className={className} aria-hidden="true">
+      <path
+        d="M4.5 3.5h3l1.4 3.5-2 1.2a10 10 0 0 0 4.9 4.9l1.2-2 3.5 1.4v3a1.5 1.5 0 0 1-1.5 1.5A12.5 12.5 0 0 1 3 5a1.5 1.5 0 0 1 1.5-1.5z"
+        fill="none"
+        stroke="#e3242b"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function CopyIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 20 20" className={className} aria-hidden="true">
+      <rect
+        x="6"
+        y="6"
+        width="10"
+        height="11"
+        rx="1.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <path
+        d="M4 13V4.5A1.5 1.5 0 0 1 5.5 3H13"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function CheckIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 20 20" className={className} aria-hidden="true">
+      <path
+        d="M4 10.5l4 4 8-9"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function MiniPinIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 16 20" className={className} aria-hidden="true">
@@ -122,7 +185,7 @@ const CARD_POS: CardPos[] = [
 // bottom card is anchored with `bottom:` so its content grows upward
 // within the map bounds instead of being clipped by the section.
 const CARD_POS_MOBILE: CardPos[] = [
-  { right: "2%", top: "4%" },
+  { right: "2%", top: "-6%" },
   { right: "2%", top: "54%" },
   { left: "2%", bottom: "2%" },
 ];
@@ -151,6 +214,19 @@ export default function LocationSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+
+  const copyPhone = (e: React.SyntheticEvent, phone: string, idx: number) => {
+    // The card itself is wrapped in an <a> that opens Google Maps. Stop the
+    // event so the copy click doesn't navigate away.
+    e.preventDefault();
+    e.stopPropagation();
+    void navigator.clipboard.writeText(phone);
+    setCopiedIdx(idx);
+    window.setTimeout(() => {
+      setCopiedIdx((current) => (current === idx ? null : current));
+    }, 1500);
+  };
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 1023px)");
@@ -498,6 +574,33 @@ export default function LocationSection() {
                   <div className="mt-1 flex items-center gap-1.5 font-sans text-[11px] font-medium text-[#3a1f17] lg:mt-2 lg:gap-2 lg:text-sm">
                     <ClockIcon className="h-3 w-3 flex-shrink-0 lg:h-4 lg:w-4" />
                     <span>{loc.hours}</span>
+                  </div>
+                  <div className="mt-1 flex items-center gap-1.5 font-sans text-[11px] font-medium text-[#3a1f17] lg:mt-2 lg:gap-2 lg:text-sm">
+                    <PhoneIcon className="h-3 w-3 flex-shrink-0 lg:h-4 lg:w-4" />
+                    <span>{loc.phoneDisplay}</span>
+                    <span
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Copy ${loc.name} phone number`}
+                      title={
+                        copiedIdx === i
+                          ? "Copied!"
+                          : `Copy ${loc.phoneDisplay}`
+                      }
+                      onClick={(e) => copyPhone(e, loc.phoneDisplay, i)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          copyPhone(e, loc.phoneDisplay, i);
+                        }
+                      }}
+                      className="ml-0.5 inline-flex h-6 w-6 flex-shrink-0 cursor-pointer items-center justify-center rounded text-[#3a1f17]/70 transition-colors hover:bg-[#3a1f17]/5 hover:text-[#e3242b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#e3242b] lg:h-7 lg:w-7"
+                    >
+                      {copiedIdx === i ? (
+                        <CheckIcon className="h-4 w-4 text-[#e3242b] lg:h-[18px] lg:w-[18px]" />
+                      ) : (
+                        <CopyIcon className="h-4 w-4 lg:h-[18px] lg:w-[18px]" />
+                      )}
+                    </span>
                   </div>
                 </a>
               );
