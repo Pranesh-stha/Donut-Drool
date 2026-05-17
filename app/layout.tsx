@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Anton, Sacramento } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import JsonLd from "@/components/JsonLd";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, SITE_TAGLINE } from "@/lib/site";
@@ -141,6 +143,8 @@ export default function RootLayout({
       <body>
         {children}
         <JsonLd />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
