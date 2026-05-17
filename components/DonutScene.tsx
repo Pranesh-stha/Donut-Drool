@@ -12,7 +12,7 @@ type DonutPose = {
   src: string;
 };
 
-const LEAD_SRC = "/models/donut.glb";
+const LEAD_SRC = "/models/chocolateIcing.glb";
 const FLAVORS = [
   "/models/chocolateIcing.glb",
   "/models/full_chocolate.glb",
@@ -20,7 +20,8 @@ const FLAVORS = [
   "/models/strawberry.glb",
   "/models/donut.glb",
   "/models/custard.glb",
-  "/models/whiteIcing.glb"
+  "/models/whiteIcing.glb",
+  "/models/chocochip.glb"
 ];
 
 const ZOOM_DURATION = 2.0;
@@ -45,7 +46,7 @@ const BURST_DONUTS_DESKTOP: DonutPose[] = [
     position: [2.35, -0.05, 4.0],
     rotation: [Math.PI / 2 - 0.16, -0.22, 0.12],
     scale: 2.35,
-    src: FLAVORS[4],
+    src: FLAVORS[7],
   },
   {
     position: [-3.45, 1.75, 1.7],
@@ -100,7 +101,7 @@ const BURST_DONUTS_MOBILE: DonutPose[] = [
     position: [1.95, 0.25, 4.4],
     rotation: [Math.PI / 2 - 0.16, -0.22, 0.12],
     scale: 2.5,
-    src: FLAVORS[4],
+    src: "/models/chocochip.glb",
   },
   {
     position: [-2.5, 2.7, 2.4],
