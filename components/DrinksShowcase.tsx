@@ -235,20 +235,38 @@ function FilterPill({
   );
 }
 
+// Per-drink scale tweaks — each PNG has different transparent padding,
+// so a uniform scale makes some drinks look small and others oversized.
+// These overrides keep the rendered drink size visually consistent.
+function drinkImageScaleClass(name: string) {
+  switch (name) {
+    case "Iced Hibiscus Tea":
+      return "scale-[1.6] group-hover:scale-[1.75]";
+    case "The Cosmic Drink":
+      return "scale-[1.36] group-hover:scale-[1.5]";
+    case "Strawberry Mocha":
+      return "scale-[1.2] group-hover:scale-[1.34]";
+    case "Matcha Latte":
+      return "scale-[1.5] group-hover:scale-[1.65]";
+    default:
+      return "scale-[1.4] group-hover:scale-[1.55]";
+  }
+}
+
 function DrinkCard({ drink }: { drink: Drink }) {
   const meta = CATEGORY_META[drink.category];
   return (
     <article className="drink-card group flex h-full flex-col items-center p-1.5 text-center transition-all duration-300 hover:-translate-y-1 md:p-2">
-      {/* aspect-[3/4] gives the drink even more vertical room, and
-          scale-[1.4] compensates for the transparent padding baked into
-          each PNG so the drink itself dominates the card. */}
+      {/* aspect-[3/4] gives the drink even more vertical room. Per-drink
+          scale (see drinkImageScaleClass) compensates for the differing
+          transparent padding inside each PNG. */}
       <div className="drink-card-art relative aspect-[3/4] w-full">
         <Image
           src={encodeURI(drink.image)}
           alt={`${drink.name} drink from Donut Drool — Kathmandu and Lalitpur`}
           fill
           sizes="(max-width: 640px) 45vw, (max-width: 1024px) 22vw, 18vw"
-          className="object-contain scale-[1.4] transition-transform duration-500 group-hover:scale-[1.55]"
+          className={`object-contain transition-transform duration-500 ${drinkImageScaleClass(drink.name)}`}
           draggable={false}
         />
       </div>

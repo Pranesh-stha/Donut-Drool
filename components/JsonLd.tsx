@@ -27,8 +27,21 @@ function organizationSchema() {
     name: SITE_NAME,
     alternateName: "Donut Drool Nepal",
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
-    image: `${SITE_URL}/logo.png`,
+    // Logo as ImageObject with explicit dimensions — Google's recommended
+    // format for brand logos. Helps the logo appear in knowledge panels
+    // and search result thumbnails.
+    logo: {
+      "@type": "ImageObject",
+      "@id": `${SITE_URL}/#logo`,
+      url: `${SITE_URL}/logo.png`,
+      contentUrl: `${SITE_URL}/logo.png`,
+      width: 2471,
+      height: 1312,
+      caption: SITE_NAME,
+    },
+    image: {
+      "@id": `${SITE_URL}/#logo`,
+    },
     description: SITE_DESCRIPTION,
     foundingDate: "2021",
     servesCuisine: ["Donuts", "Desserts", "Bakery"],
@@ -50,7 +63,8 @@ function localBusinessSchemas() {
     "@type": "Bakery",
     "@id": `${SITE_URL}/#${o.id}`,
     name: o.name,
-    image: `${SITE_URL}/logo.png`,
+    image: { "@id": `${SITE_URL}/#logo` },
+    logo: { "@id": `${SITE_URL}/#logo` },
     url: SITE_URL,
     telephone: o.phoneE164,
     address: {
@@ -198,9 +212,30 @@ function websiteSchema() {
     "@id": `${SITE_URL}/#website`,
     url: SITE_URL,
     name: SITE_NAME,
+    alternateName: ["Donut Drool Nepal", "DonutDrool", "donutdrool.com"],
     description: SITE_DESCRIPTION,
     inLanguage: "en-NP",
     publisher: { "@id": `${SITE_URL}/#business` },
+  };
+}
+
+// Tying the homepage URL to the logo via primaryImageOfPage is the
+// strongest signal Google has for which image to use in search result
+// thumbnails. Combined with the ImageObject in the Bakery schema, this
+// gives Google three converging signals all pointing to /logo.png.
+function webpageSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE_URL}/#webpage`,
+    url: SITE_URL,
+    name: `${SITE_NAME} — Best Eggless Donuts in Kathmandu & Lalitpur`,
+    description: SITE_DESCRIPTION,
+    inLanguage: "en-NP",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#business` },
+    primaryImageOfPage: { "@id": `${SITE_URL}/#logo` },
+    image: { "@id": `${SITE_URL}/#logo` },
   };
 }
 
@@ -208,6 +243,7 @@ export default function JsonLd() {
   const graph = [
     organizationSchema(),
     websiteSchema(),
+    webpageSchema(),
     ...localBusinessSchemas(),
     menuSchema(),
     faqSchema(),
