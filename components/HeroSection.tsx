@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HeroLoader from "./HeroLoader";
 
 const DonutCanvas = dynamic(() => import("./DonutCanvas"), { ssr: false });
@@ -10,6 +10,20 @@ export type Phase = "idle" | "intro" | "blast" | "settled";
 
 export default function HeroSection() {
   const [ready, setReady] = useState(false);
+
+  // Hold the user on the hero while 3D models load — no scrolling past the
+  // loader until DonutCanvas signals it's ready. Restoring the previous
+  // overflow on cleanup keeps this compatible with any other component that
+  // also locks scroll (e.g. the mobile nav menu).
+  useEffect(() => {
+    if (ready) return;
+    window.scrollTo(0, 0);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [ready]);
 
   return (
     <section id="home" className="relative h-screen w-full">
